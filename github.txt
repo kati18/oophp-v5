@@ -1,1 +1,1 @@
-https://github.com/kati18/oophp
+https://github.com/kati18/oophp-v5

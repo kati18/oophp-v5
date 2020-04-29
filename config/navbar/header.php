@@ -88,5 +88,13 @@ return [
             "url" => "dev",
             "title" => "Anax development utilities",
         ],
+        [
+            "text" => "Guess game",// text in navbar
+            // ->url:http://localhost:8080/oophp/me/redovisa/htdocs/guess-game and file
+            // C:\cygwin64\home\katja\dbwebb-kurser\oophp\me\redovisa\content\guess-game\index.md:
+            "url" => "guess-game",
+            // text in tool-tip when hovering over the text Guess game in navbar:
+            "title" => "Play the game guess my number",
+        ],
     ],
 ];
