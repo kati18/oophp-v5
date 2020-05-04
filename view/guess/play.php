@@ -16,7 +16,8 @@ namespace Anax\View;
 ?><h1>Guess my number</h1>
 
 <p>Guess a number between 1 and 100.</p>
-<p <?php if ($tries < 6) {
+<p
+<?php if ($tries < 6) {
     ?> hidden <?php
 } ?>>You have <?= $tries ?> tries to find out the secret number.</p>
 
@@ -41,11 +42,11 @@ namespace Anax\View;
 
 <?php if ($res) : ?>
     <p>Your guess <?= $guess ?> is <b><?= $res ?> </b></p>
-    <p <?php if ((int)$guess === $number) {
+    <p
+    <?php if ((int)$guess === $number) {
         ?> hidden <?php
-       }
-        ?>>You have <?= $tries ?> tries left.</p>
-    <?php if ($tries < 1) {
+    } ?>>You have <?= $tries ?> tries left.</p>
+    <?php if ($tries < 1 && (int)$guess !== $number) {
         ?> <p>The secret number between 1 and 100 was <?= $number ?>.</p>
     <p>Press Start from beginning to play again.</p> <?php
     } ?>
