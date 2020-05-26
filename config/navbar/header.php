@@ -96,5 +96,13 @@ return [
             // text in tool-tip when hovering over the text Guess game in navbar:
             "title" => "Play the game guess my number",
         ],
+        [
+            "text" => "Dice 100 game",// text in navbar
+            // ->url:http://localhost:8080/oophp/me/redovisa/htdocs/dice-game and file
+            // C:\cygwin64\home\katja\dbwebb-kurser\oophp\me\redovisa\content\dice-game\index.md:
+            "url" => "dice-game",
+            // text in tool-tip when hovering over the text Dice game in navbar:
+            "title" => "Play the Dice 100 game",
+        ],
     ],
 ];

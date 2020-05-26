@@ -2,11 +2,12 @@
 
 namespace Anax\View;
 
-// namespace Kati18\Guess;
-
-
 /**
  * Render content within an article.
+ * A view-file that is posted to route post("guess/play")
+ * in file router/100_guess.php
+ * Is rendered together with view/cheat.php within route get("guess/play")
+ * in file router/100_guess.php
  */
 
 // Show incoming variables and view helper functions
@@ -21,8 +22,9 @@ namespace Anax\View;
     ?> hidden <?php
 } ?>>You have <?= $tries ?> tries to find out the secret number.</p>
 
+<!-- A form posted to itself i. e. to route post("guess/play") in file router/100_guess.php: -->
 <form method="post">
-    <input type="text" name="guess"
+    <input type="text" name="guess" required
     <?php if ($tries < 1 || (int)$guess === $number) {
         ?> disabled <?php
     } ?>>
@@ -32,11 +34,14 @@ namespace Anax\View;
         ?> disabled <?php
     } ?>>
 
-    <input type="submit" name="doInit" value="Start from beginning">
-    <input type="submit" name="doCheat" value="Cheat"
-    <?php if ($tries < 1 || (int)$guess === $number) {
-        ?> disabled <?php
-    } ?>>
+    <!-- <a href="/oophp/me/redovisa/htdocs/guess/doInit">Start from beginning</a> alt below:-->
+    <a href="doInit">Start from beginning</a>
+    <!-- href="doInit" above as in route get("guess/doInit") in file router/100_guess.php-->
+<!-- For a button instead, se below: -->
+    <a href="doInit">
+        <button type="button">Start from beginning</button>
+    </a>
+
 </form>
 
 
@@ -52,13 +57,9 @@ namespace Anax\View;
     } ?>
 <?php endif; ?>
 
-<?php if ($numRes) : ?>
-    <p>CHEAT: The current secret number is <?= $number ?>.</b></p>
-    <p>You have <?= $tries ?> tries left.</p>
-<?php endif; ?>
 
 <?php if ((int)$guess === $number) : ?>
-    <h1><strong>Congratulations, you won!!!</strong></h1>
+    <h2><strong>Congratulations, you won!!!</strong></h2>
     <p>Press Start from beginning to play again.</p>
 <?php endif; ?>
 
