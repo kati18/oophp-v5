@@ -4,7 +4,7 @@ namespace Anax\View;
 
 /**
  * Render content within an article.
- * A view-file that is posted to route post("guess/play")
+ * A view-file(form) that is posted to route post("guess/play")
  * in file router/100_guess.php
  * Is rendered together with view/cheat.php within route get("guess/play")
  * in file router/100_guess.php

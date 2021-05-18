@@ -1,32 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kati18\Dice;
 
 /**
- * A dicehand, consisting of dices.
+ * A class that contains the class DiceHand.
+ * A dicehand, consisting of dice.
  */
 class DiceHand
 {
     /**
-     * @var Dice $dices   Array consisting of dices.
-     * @var int  $values  Array consisting of last roll of the dices.
+     * @var array $dices   Array consisting of dice.
+     * @var array $faces  Array consisting of the faces of the last roll of the dice.
      */
+    // private array $dices;
     private $dices;
-    private $values;
+    // private array $faces;
+    private $faces;
 
     /**
      * Constructor to initiate the dicehand with 5 dices which have 6 sides each, no values.
      *
-     * @param int $dices Number of dices to create, defaults to five.
+     * @param int $dices Number of dices to create, defaults to three.
      */
-    public function __construct(int $dices = 5)
+    public function __construct(int $dices = 3)
     {
         $this->dices  = [];
-        $this->values = [];
+        $this->faces = [];
 
         for ($i = 0; $i < $dices; $i++) {
             $this->dices[]  = new Dice();
-            $this->values[] = null;
         }
         // echo "this->dices:\n";
         // var_dump($this->dices);
@@ -35,53 +39,75 @@ class DiceHand
     }
 
     /**
-     * Roll all dices save their value.
-     * Uses the method roll in class Dice, see row 49.
-     * It also works to use the code on row 48. In that case it replaces the code in row 49.
+     * Rolls all dice by invoking the method rollDice in class Dice.
+     * Saves the faces of the dice.
      *
      * @return void.
      */
-    public function roll()
+    public function rollDiceHand(): void
     {
-        $this->values = [];
-        foreach ($this->dices as $value) {
-            // $this->values[] = rand(1, 6);
-            $this->values[] = $value->roll();
+        $this->faces = [];
+        foreach ($this->dices as $die) {
+            $die->rollDice();
+            $this->faces[] = $die->getLastRollFaceDice();
         }
-        // return $this->values;
-        // echo "this->values från roll:\n";
-        // var_dump($this->values);
     }
 
     /**
-     * Get values of dices from last roll.
-     *
-     * @return array with values of the last roll.
+    * Sets the face values. Method used for unit testing only.
      */
-    public function values()
+    public function setDiceFacesDiceHand(int $face1, int $face2, int $face3, int $face4, int $face5): void
     {
-        return $this->values;
+        $this->faces = [$face1, $face2, $face3, $face4, $face5];
+        // echo "this->faces från setDiceFacesDiceHand:\n";
+        // var_dump($this->faces);
     }
 
     /**
-     * Get the sum of all dices in last roll.
+     * Gets the faces of the dice from last roll.
      *
-     * @return int as the sum of all dices.
+     * @return array with faces of the dice of the last roll.
      */
-    public function sum()
+    public function getDiceFacesDiceHand(): array
     {
-        $sum = array_sum($this->values);
+        return $this->faces;
+    }
+
+    /**
+     * Gets the sum of all faces of the dice in last roll.
+     *
+     * @return int as the sum of all dice.
+     */
+    public function sum(): int
+    {
+        $sum = array_sum($this->faces);
+        // echo "this->faces från sum():\n";
+        // var_dump($this->faces);
         return $sum;
     }
 
+    // /**
+    //  * Get the average of all dice.
+    //  *
+    //  * @return float as the average of all faces of the dice in last roll.
+    //  */
+    // public function average(): float
+    // {
+    //     $averageValue = $this->sum()/5;
+    //     return round($averageValue, 1);
+    // }
+
     /**
-     * Get the average of all dices.
+     * Returns true if $this->faces contains a 1 else false.
      *
-     * @return float as the average of all dices in last roll.
+     * @return bool
      */
-    public function average()
+    public function checkIfOne(): bool
     {
-        $averageValues = $this->sum()/5;
-        return round($averageValues, 1);
+        foreach ($this->faces as $face) {
+            if ($face == 1) {
+                return true;
+            }
+        } return false;
     }
 }

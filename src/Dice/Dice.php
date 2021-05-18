@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Kati18\Dice;
 
 /**
  * A class that contains the class Dice.
  * The class contains a method for initiating instances/objects of the class,
- * a method for rolling the dice,
+ * a method for rolling the die object,
  * a method for calculating the sum of all values of the rolls,
  * a method for calculation the average value of all the rolls.
 */
@@ -12,20 +15,20 @@ namespace Kati18\Dice;
 class Dice
 {
     /**
-     * @var int $sides   The value on the dice
-     * @var int $lastRoll The value on the dice last rolled
+     * @var int $sides   The number of sides of the die object
+     * @var int $lastRollFace The last rolled face of the die object
      */
     private $sides;
-    private $lastRoll;
+    private $lastRollFace;
     // alt.:
-    // protected $lastRoll;
+    // protected $lastRollFace;
 
 
     /**
-     * Constructor to initiate the object with sides that defaults to 6 if no
+     * Constructor to initiate the die object with sides that defaults to 6 if no
      * argument is passed in.
      *
-     * @param int $sides The number of sides of the dice, default 6.
+     * @param int $sides The number of sides of the die, defaults to 6.
      */
     public function __construct(int $sides = 6)
     {
@@ -33,53 +36,79 @@ class Dice
     }
 
 
+    // /**
+    //  * Rolls the die object and randomizes a die face which is an integer between 1 and 6.
+    //  */
+    // public function rollDice(): void
+    // {
+    //     $face = rand(1, 6);
+    //     $this->lastRollFace = $face;
+    //     // return $this->lastRollFace; //alt below:
+    //     // return $face;
+    // }
+
     /**
-     * Rolls the dice and randomizes a dice face which is an integer between 1 and 6.
-     *
-     * @return int as number of dice face
+     * Rolls the die object and randomizes a die face which is an integer between 1 and 6.
+     * @return int as face of the last roll of the die object
      */
-    public function roll()
+    public function rollDice(): int
     {
-        $side = rand(1, 6);
-        $this->lastRoll = $side;
-        return $side;
+        // $face = rand(1, 6);
+        $face = rand(1, $this->sides);
+        $this->lastRollFace = $face;
+        return $this->lastRollFace;
+    }
+
+
+    /**
+     * Gets the face of last roll of the die object.
+     *
+     * @return int as face of the last roll of the die object
+     */
+    public function getLastRollFaceDice(): int
+    {
+        return $this->lastRollFace;
+    }
+
+
+    /**
+     * Gets the face of the roll of the computer die object as soon as
+     * the face of the player die object and the computer die object is
+     * not equal and not of the same type.
+     *
+     * @param int $playerRollFace as face of init roll of the player die object
+     * @param int $computerRollFace as face of init roll of the computer die object
+     * @return int as face of the roll of the computer die object
+     */
+    public function getInitRollFaceDice(int $playerRollFace, int $computerRollFace): int
+    {
+        while ($playerRollFace === $computerRollFace) {
+            $this->rollDice();
+            $computerRollFace = $this->getLastRollFaceDice();
+        }
+        return $computerRollFace;
     }
 
 
     /**
      * Not in use in dice 100 in Anax!!!
-     * Gets the value on dice from the last roll.
-     *
-     * @return int as value of the dice
-     */
-    // public function getLastRoll()
-    // {
-    //     // $lastRoll = $this->lastRoll;
-    //     // return $lastRoll;
-    //     // alt.:
-    //     return $this->lastRoll;
-    // }
-
-
-    /**
-     * Not in use in dice 100 in Anax???
      * Summarizes all values(elements) in the array $arrayValues.
      *
      * @return int as sum of all values in the array $$arrayValues.
      */
-    public function sum(array $arrayValues)
-    {
-        $sum = array_sum($arrayValues);
-        return $sum;
-    }
+    // public function sum(array $arrayValues) : int
+    // {
+    //     $sum = array_sum($arrayValues);
+    //     return $sum;
+    // }
 
     /**
-     * Not in use in dice 100 in Anax!
+     * Not in use in dice 100 in Anax!!!
      * Calculates the average value of all values(elements) in the array $arrayValues.
      *
-     * @return int as the average value of all values in the array $arrayValues.
+     * @return float as the average value of all values in the array $arrayValues.
      */
-    // public function average(array $arrayValues)
+    // public function average(array $arrayValues) : float
     // {
     //     $sum = $this->sum($arrayValues);
     //     $average = $sum/6;
